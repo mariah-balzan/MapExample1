@@ -29,6 +29,7 @@ export function MapScreen() {
       longitudeDelta: 0.0421,
     }
 
+    //Handles zoom onloading the app
     const mapRef = React.useRef()
 
     // Function to get realtime location
@@ -62,23 +63,23 @@ export function MapScreen() {
       style={StyleSheet.absoluteFill} 
       ref={mapRef}
       provider={PROVIDER_GOOGLE}
-      initialRegion={initialRegion}
-      >
-      {/* Start Pin */}
-      <Marker
-      draggable 
-      image={carImage}
-      style={{maxHeight:'30%', maxWidth:'30%'}}
-      coordinate = {origin} 
-      onDragEnd={(direction => setOrigin(direction.nativeEvent.coordinate))}>
-      </Marker>
+      initialRegion={initialRegion}>
 
-      {/* End Pin */}
-      <Marker
-      draggable 
-      coordinate = {destination} 
-      onDragEnd={(direction => setOrigin(direction.nativeEvent.coordinate))}>
-      </Marker>
+          {/* Origin Pin */}
+          <Marker
+          draggable 
+          image={carImage}
+          style={{maxHeight:'30%', maxWidth:'30%'}}
+          coordinate = {origin} 
+          onDragEnd={(direction => setOrigin(direction.nativeEvent.coordinate))}>
+          </Marker>
+
+          {/* Destination Pin */}
+          <Marker
+          draggable 
+          coordinate = {destination} 
+          onDragEnd={(direction => setOrigin(direction.nativeEvent.coordinate))}>
+          </Marker>
 
       {/* Line */}
       <Polyline 
@@ -93,6 +94,7 @@ export function MapScreen() {
       apikey={GOOGLE_MAPS_KEY} 
       strokeColor = "black"
       strokeWidth={5}
+      //Handles zoom onloading the app
       optimizeWaypoints={true}
       onReady={result => {
         mapRef.current.fitToCoordinates(result.coordinates, {
